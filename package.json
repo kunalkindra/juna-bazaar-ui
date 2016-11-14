@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --inline --history-api-fallback",
     "build": "webpack",
-    "prod": "http-server -p 8080"
+    "prod": "http-server -p 8080",
+    "test": "./node_modules/.bin/mocha"
   },
   "author": "tw-bootcamp",
   "license": "ISC",
