@@ -4,4 +4,4 @@ Just run `npm install` followed by `npm start` and access at http://localhost:80
 
 To build run npm run build
 
-To run test cases 'npm test'
+To run test cases `npm test`
