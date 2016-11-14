@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dashboard -- webpack-dev-server --inline --history-api-fallback",
+    "start": "webpack-dev-server --inline --history-api-fallback",
     "build": "webpack",
     "prod": "http-server -p 8080"
   },

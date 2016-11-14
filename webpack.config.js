@@ -13,13 +13,18 @@ module.exports = {
         filename: 'bundle.js',
         path: __dirname + "/dist"
     },
-
+    resolve: {
+        extensions: ['', '.js', '.jsx', '.json']
+    },
     module: {
         loaders: [
-            { 
-              test: /\.js$/,
-              exclude: /node_modules/,
-              loader: 'babel-loader?presets[]=es2015&presets[]=react'
+            {
+                test: /.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015', 'react']
+                }
             },
             {
                 test: /\.scss$/,
