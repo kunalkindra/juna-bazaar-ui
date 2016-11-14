@@ -9,7 +9,7 @@ const TopNav = React.createClass({
     },
     getInitialState() {
         return {
-            activeNav: 1
+            activeNav: this.props.current
         }
     },
     contextTypes: {
@@ -26,14 +26,14 @@ const TopNav = React.createClass({
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/">Juna Bazaar</Link>
+                        Juna Bazaar
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                 <Nav activeKey={this.state.activeNav} onSelect={this.onNavClick}>
                 {this.props.data.map(function (navItem, key) {
-                    return <NavItem key={key} eventKey={key+1} linkTo={navItem.route}>{navItem.text}</NavItem>
+                    return <NavItem eventKey={key+1} linkTo={navItem.route}>{navItem.text}</NavItem>
                 })}
                 </Nav>
                 <Nav pullRight onSelect={this.signOutClick}>

@@ -18,12 +18,25 @@ const menuItems = [
     }
 ]
 
+
+
 const App = React.createClass({
+    getCurrentNavIndex() {
+        let result = 1;
+        menuItems.forEach((item, index) => {
+            if(this.props.location.pathname == item.route) {
+                result = index + 1;
+                return false;
+            }
+        })
+
+        return result;
+    },
     render() {
         var op = utils.isLoggedIn() ? (
             <div>
                 <header>
-                    <TopNav data={menuItems}/>
+                    <TopNav data={menuItems} current={this.getCurrentNavIndex()}/>
                 </header>
                 {this.props.children}
             </div>
