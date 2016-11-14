@@ -16,6 +16,11 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.jsx', '.json']
     },
+    devServer: {
+        historyApiFallback: {
+            index: 'index.html'
+        }
+    },
     module: {
         loaders: [
             {

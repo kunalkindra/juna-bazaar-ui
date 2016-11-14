@@ -1,17 +1,36 @@
 import React from 'react';
-import Dummy from './components/Dummy';
+import TopNav from './components/TopNav';
+import utils from './utils/utils';
+import SignIn from './components/SignIn';
 
+const menuItems = [
+    {
+        text: 'All Ads',
+        route: '/advertisements'
+    },
+    {
+        text: 'My Ads',
+        route: '/my-ads'
+    },
+    {
+        text: 'Create Ad',
+        route: '/new-ad'
+    }
+]
 
 const App = React.createClass({
     render() {
-        return (
+        var op = utils.isLoggedIn() ? (
             <div>
-                <h1>
-                    Juna Bazaar
-                </h1>
-                <Dummy name="World"/>
+                <header>
+                    <TopNav data={menuItems}/>
+                </header>
+                {this.props.children}
             </div>
-        )
+        ) : (
+            <SignIn/>
+        );
+        return op;
     }
 });
 
