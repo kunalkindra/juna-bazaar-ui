@@ -1,14 +1,18 @@
 import React from 'react';
-import {Link} from 'react-router';
+import Dummy from './components/Dummy';
+
 
 const App = React.createClass({
     render() {
         return (
-            <h1>
-                Juna Bazaar
-            </h1>
+            <div>
+                <h1>
+                    Juna Bazaar
+                </h1>
+                <Dummy name="World"/>
+            </div>
         )
     }
-})
+});
 
 module.exports = App;
