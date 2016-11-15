@@ -1,8 +1,14 @@
 import React from 'react';
+import UploadImageForm from './UploadImageForm/UploadImageForm'
 
 const CreateAd = React.createClass({
     render() {
-        return(<h1>CreateAd</h1>)
+        return(
+            <div>
+                <h1>CreateAd</h1>
+                <UploadImageForm/>
+            </div>
+        )
     }
 })
 
