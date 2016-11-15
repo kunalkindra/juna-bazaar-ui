@@ -15,9 +15,29 @@ const SignUp = React.createClass({
             city: ''
         }
     },
+    signUpModel: function() {
+        return {
+            email: this.state.email,
+            name: this.state.name,
+            password: this.state.password,
+            mobileNumber: this.state.mobileNumber,
+            city: this.state.city,
+            isValid: function () {
+                return this.email!==''
+                    && this.name!==''
+                    && this.password!==''
+                    && this.city!==''
+            }
+        }
+    },
     signUp() {
-        utils.register();
-        browserHistory.push('/');
+        var model=this.signUpModel();
+        if(model.isValid()) {
+            utils.register(model);
+            browserHistory.push('/');
+        }else{
+            alert("Missing data")
+        }
     },
     render() {
         return (
