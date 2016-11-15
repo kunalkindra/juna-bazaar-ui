@@ -1,17 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router'
+import {Link} from 'react-router'
+import ProductItem from './ProductItem'
+import ServiceManager from '../serviceManager/ServiceManager'
 
-const AdList = React.createClass({
+class AdList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            "products": []
+        }
+    }
+
+    componentWillMount() {
+        ServiceManager
+            .exec('LOAD_ADS')
+            .then((response) => {
+                var productObj = {
+                    "products" : response.data.content
+                }
+                this.setState(productObj);
+            })
+            .catch(function(e){
+              console.log(e);
+            });
+    }
+
     render() {
-        return(
-            <div>
-                <h1>AdList</h1>
-                <Link to='/advertisements/1'>Ad 1</Link>
-                <Link to='/advertisements/2'>Ad 2</Link>
-                <Link to='/advertisements/3'>Ad 3</Link>
+        console.log("Products",this.state.products);
+        return (
+            <div className="container">
+                <table align="center">
+                    <tr>
+                        <th width="10%">Product Id</th>
+                        <th width="15%">Product Title</th>
+                        <th width="30%">Product Description</th>
+                        <th width="10%">Product Price</th>
+                        <th width="10%">Product Location</th>
+                    </tr>
+                    {this.state.products.map((product) => {
+                        return <ProductItem id={product.id}
+                                      title={product.title}
+                                      description={product.description}
+                                      price={product.price}
+                                      cityName={product.cityName}/>
+                    })}
+                </table>
             </div>
         )
     }
-})
+}
 
 module.exports = AdList;

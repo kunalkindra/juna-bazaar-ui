@@ -15,8 +15,11 @@ const config = {
         SIGNUP: {
             url: baseServerUrl + '/signup',
             method: 'get'
+        },
+        LOAD_ADS: {
+            url: baseServerUrl + '/open/products',
+            method: 'get'
         }
-
     }
 
 
