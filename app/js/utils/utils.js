@@ -14,6 +14,10 @@ const utils = {
     logOut() {
         sessionStorage.setItem('loggedIn', false);
         browserHistory.push('/');
+    },
+    register() {
+        utils.logIn()
+        return true;
     }
 }
 

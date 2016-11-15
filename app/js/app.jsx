@@ -2,6 +2,7 @@ import React from 'react';
 import TopNav from './components/TopNav';
 import utils from './utils/utils';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 const menuItems = [
     {
@@ -41,7 +42,12 @@ const App = React.createClass({
                 {this.props.children}
             </div>
         ) : (
-            <SignIn/>
+            <div>
+                <SignIn/>
+                <SignUp/>
+            </div>
+
+
         );
         return op;
     }
