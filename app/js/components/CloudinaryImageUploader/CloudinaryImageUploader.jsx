@@ -25,7 +25,7 @@ class CloudinaryImageUploader extends React.Component {
                 file: file
             }
         ServiceManger
-            .exec('CLOUDINARY_UPLOAD', {data: data})
+            .exec('CLOUDINARY_UPLOAD', {data: data}, true)
             .then((response) => {
                 that.setState({
                     imgUrl: response.data.url
