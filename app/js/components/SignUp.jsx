@@ -3,17 +3,22 @@ import { browserHistory } from 'react-router';
 import utils from '../utils/utils';
 import {FormGroup, FormControl, Button} from 'react-bootstrap';
 import LinkedStateMixin from 'react-addons-linked-state-mixin' // ES6
+import ServiceManager from '../serviceManager/ServiceManager' // ES6
 
 const SignUp = React.createClass({
     mixins: [LinkedStateMixin],
     getInitialState: function() {
         return {
             email: '',
-            name: '',
+            fullName: '',
             password: '',
-            mobileNumber: '',
-            city: ''
+            mobileNo: '',
+            cityId: '1'
         }
+    },
+    cityList: ['Bangalore', 'Chennai', 'Pune', 'Hyderabad', 'Gurgaon', 'Noida', 'Mumbai', 'Coimbatore'],
+    componentDidMount() {
+
     },
     validate() {
         var isValid=true;
@@ -40,7 +45,7 @@ const SignUp = React.createClass({
                     Create an account
                 </FormGroup>
                 <FormGroup>
-                    <FormControl type="text" id="name" placeholder="Name" valueLink={this.linkState('name')}/>
+                    <FormControl type="text" id="name" placeholder="Name" valueLink={this.linkState('fullName')}/>
                 </FormGroup>
                 <FormGroup>
                     <FormControl type="email" id="email-id" placeholder="Email" valueLink={this.linkState('email')}/>
@@ -49,11 +54,13 @@ const SignUp = React.createClass({
                     <FormControl type="password" id="password" placeholder="Password" valueLink={this.linkState('password')}/>
                 </FormGroup>
                 <FormGroup>
-                    <FormControl type="text" id="mobile-number" placeholder="Mobile Number" valueLink={this.linkState('mobileNumber')}/>
+                    <FormControl type="text" id="mobile-number" placeholder="Mobile Number" valueLink={this.linkState('mobileNo')}/>
                 </FormGroup>
-                <FormGroup>
-                    <FormControl type="text" id="city" placeholder="City" valueLink={this.linkState('city')}/>
-                </FormGroup>
+                <select valueLink={this.linkState('cityId')}>
+                    {this.cityList.map((item, key) => {
+                        return <option value={key+1}>{item}</option>
+                    })}
+                </select>
                 <FormGroup>
                     <Button onClick={this.signUp}>Create an account</Button>
                 </FormGroup>

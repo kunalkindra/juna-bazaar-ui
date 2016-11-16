@@ -17,8 +17,16 @@ const utils = {
         browserHistory.push('/');
     },
     register(model) {
-        service.exec("REGISTER",{data: model});
-        utils.logIn()
+        service
+            .exec("REGISTER",{data: model})
+            .then(
+                (response) => {
+                    alert('Sign up successful');
+                },
+                (error) => {
+                    alert(error.errorMessage);
+                }
+            );
         return true;
     }
 }
