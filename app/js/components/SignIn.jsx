@@ -65,7 +65,7 @@ const SignIn = React.createClass({
                 <input type="text" id="email-id" valueLink={this.linkState('email')}/>
 
                 <label htmlFor="password" >Password</label>
-                <input type="text" id="password" valueLink={this.linkState('password')}/>
+                <input type="password" id="password" valueLink={this.linkState('password')}/>
 
                 <input type="button" value="Sign In" onClick={this.signIn}/>
             </p>
