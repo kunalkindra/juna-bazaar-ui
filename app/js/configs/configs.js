@@ -18,7 +18,12 @@ const config = {
         LOAD_ADS: {
             url: baseServerUrl + '/open/products',
             method: 'get'
-        }
+        },
+        SIGN_IN: {
+            url: baseServerUrl + '/login',
+            method: 'post'
+        },
+
     }
 
 
