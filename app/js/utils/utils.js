@@ -24,7 +24,7 @@ const utils = {
                     alert('Sign up successful');
                 },
                 (error) => {
-                    alert(error.errorMessage);
+                    alert(error.response.data.errorMessage);
                 }
             );
         return true;
