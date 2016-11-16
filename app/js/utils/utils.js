@@ -17,7 +17,7 @@ const utils = {
         browserHistory.push('/');
     },
     register(model) {
-        service.exec("post", "/register",model);
+        service.exec("REGISTER",{data: model});
         utils.logIn()
         return true;
     }

@@ -15,20 +15,15 @@ class CloudinaryImageUploader extends React.Component {
         }
     }
     handleFileInputChange(e) {
-       let that = this,
-           file = e.target.files[0],
-           formData = new FormData(),
-           axiosConfig = {};
-
-       formData.append('upload_preset', 'rz4hjmme');
-       formData.append('file', file);
-
-        axiosConfig = {
-            data: formData
-        }
+        let that = this,
+            file = e.target.files[0],
+            data = {
+                upload_preset: 'rz4hjmme',
+                file: file
+            }
 
         ServiceManger
-            .exec('CLOUDINARY_UPLOAD', axiosConfig)
+            .exec('CLOUDINARY_UPLOAD', {data: data})
             .then((response) => {
                 console.log("response----->", arguments);
                 that.setState({

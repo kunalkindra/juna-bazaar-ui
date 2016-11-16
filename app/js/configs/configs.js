@@ -11,10 +11,9 @@ const config = {
             },
             method: 'post'
         },
-        //signup dummy, update when integrating component
-        SIGNUP: {
-            url: baseServerUrl + '/signup',
-            method: 'get'
+        REGISTER: {
+            url: baseServerUrl + '/register',
+            method: 'post'
         },
         LOAD_ADS: {
             url: baseServerUrl + '/open/products',
