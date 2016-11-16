@@ -29,7 +29,12 @@ class CreateAd extends React.Component {
 
     handleSubmit(event) {
         //TODO ajax call
-        alert(JSON.stringify(this.getFormData()));
+        if (this.state.imageUrls.length > 0) {
+            alert(JSON.stringify(this.getFormData()));
+            return;
+        } else {
+            alert("Please fill all the fields.");
+        }
     }
 
     getFormData() {
