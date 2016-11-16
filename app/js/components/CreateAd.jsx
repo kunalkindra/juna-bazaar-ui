@@ -26,7 +26,6 @@ class CreateAd extends React.Component {
     }
 
     prePopulateCategories(){
-        alert("pre populate");
         ServiceManger
             .exec('GET_CATEGORIES',{"data":""})
             .then(
@@ -34,7 +33,7 @@ class CreateAd extends React.Component {
                     console.log("on success");
                     var data = response.data;
                     this.setState(Object.assign({}, this.state, { categoryList : data}));
-                    alert(data);
+
                 },
                 (error) => {
                     alert(error.response.data.errorMessage)
@@ -50,7 +49,7 @@ class CreateAd extends React.Component {
                     console.log("on success");
                     var data = response.data;
                     this.setState(Object.assign({}, this.state, { cities : data}));
-                    alert(data);
+
                 },
                 (error) => {
                     alert(error.response.data.errorMessage)
@@ -75,7 +74,6 @@ class CreateAd extends React.Component {
     handleSubmit(event) {
         //TODO ajax call
         if (this.state.imageUrls.length > 0) {
-            alert(JSON.stringify(this.getFormData()));
             var data = this.getFormData();
             ServiceManger
                 .exec('POST_ADD', {"data": data})
