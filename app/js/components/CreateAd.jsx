@@ -1,5 +1,6 @@
 import React from 'react';
 import UploadImageForm from './UploadImageForm/UploadImageForm'
+import ServiceManger from "../serviceManager/ServiceManager";
 
 class CreateAd extends React.Component {
     constructor(props) {
@@ -27,10 +28,19 @@ class CreateAd extends React.Component {
         this.setState(nextState);
     }
 
+
+
     handleSubmit(event) {
         //TODO ajax call
         if (this.state.imageUrls.length > 0) {
             alert(JSON.stringify(this.getFormData()));
+            var data = this.getFormData();
+            ServiceManger
+                .exec('POST_ADD', {"data": data})
+                .then((response) => {
+                    console.log("on success");
+                })
+
             return;
         } else {
             alert("Please fill all the fields.");
@@ -54,7 +64,7 @@ class CreateAd extends React.Component {
         return (
             <div>
                 <h1>CreateAd</h1>
-                <form onSubmit={this.handleSubmit}>
+                <div>
 
                     <label for="title">Title:</label>
                     <input type="text" id="title" onChange={this.handleChange.bind(this, 'title')}/> <br />
@@ -79,8 +89,8 @@ class CreateAd extends React.Component {
                     </select>
                     <br />
                     <UploadImageForm callbackOnImagesAdded={this.onImagesAdded}/>
-                    <input type="submit" value="Submit"/>
-                </form>
+                    <input type="submit" value="Submit" onClick={this.handleSubmit}/>
+                </div>
             </div>
         )
     }
