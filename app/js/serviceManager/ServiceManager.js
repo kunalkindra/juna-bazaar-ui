@@ -10,14 +10,15 @@ class ServiceManager {
 	 * This method is used as a helper method to execute ajax calls.
 	 * @param callSignture ---- String Key to fetch configurations from config file.
 	 * @param params  -- Object containing data against the data key. eg. {data : {dummy}}
+	 * @param convToFormData  -- Boolean, true if form data conversion is required
 	 * @returns {*}
 	 */
 	exec(callSignture, params) {
 		var config = Object.assign({},serviceCalls[callSignture],params);
 		if(config.data && config.data.toString() === '[object Object]') {
-			if(config.method === 'post' || config.method === 'put') {
+			if((config.method === 'post' || config.method === 'put') && convToFormData) {
 				config.data = this.objectToFormData(config.data);
-			} else {
+			} else if (config.method === 'get') {
 				config.url += this.objectToQueryString(config.data);
 			}
 		}
