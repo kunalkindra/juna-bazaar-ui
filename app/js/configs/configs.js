@@ -23,6 +23,10 @@ const config = {
             url: baseServerUrl + '/login',
             method: 'post'
         },
+        POST_ADD  :{
+            url: baseServerUrl + '/open/product',
+            method: 'post'
+        }
 
     }
 
