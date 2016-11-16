@@ -1,53 +1,92 @@
-import React from 'react';
-import {Link} from 'react-router'
+import React  from 'react';
 import ProductItem from './ProductItem'
 import ServiceManager from '../serviceManager/ServiceManager'
+import Pagination from "react-js-pagination"
 
 class AdList extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            "products": []
-        }
+            "products": [],
+            "pagination":{
+                "activePage": 1,
+                "itemsCountPerPage": 2,
+                "totalItemsCount": 0,
+                "pageRangeDisplayed": 2
+            }
+        };
     }
 
     componentWillMount() {
+        this.loadProducts(this.state.pagination.activePage);
+    }
+
+    handlePageChange(pageNumber) {
+        this.loadProducts(pageNumber);
+    }
+
+    constructProductLoadUrl(pageNumber){
+        return {
+            "size": this.state.pagination.itemsCountPerPage,
+            "page": pageNumber - 1,
+            "sort": "id,desc"
+        }
+    }
+
+    loadProducts(pageNumber) {
         ServiceManager
-            .exec('LOAD_ADS')
+            .exec('LOAD_ADS', {"data" : this.constructProductLoadUrl(pageNumber)})
             .then((response) => {
-                var productObj = {
-                    "products" : response.data.content
+                const paginationObj = {
+                    "activePage": response.data.number + 1,
+                    "itemsCountPerPage": this.state.pagination.itemsCountPerPage,
+                    "totalItemsCount": response.data.totalElements,
+                    "pageRangeDisplayed": this.state.pagination.pageRangeDisplayed
                 }
-                this.setState(productObj);
+
+                this.setState(Object.assign({}, this.state, {
+                    "products" : response.data.content,
+                    "pagination" : paginationObj
+                }));
             })
             .catch(function(e){
-              console.log(e);
+                console.log(e);
             });
     }
 
     render() {
-        console.log("Products",this.state.products);
         return (
             <div className="container">
+
                 <table align="center">
                     <tr>
-                        <th width="10%">Product Id</th>
+                        <th width="8%">Product Image</th>
+                        <th width="5%">Product Id</th>
                         <th width="15%">Product Title</th>
-                        <th width="30%">Product Description</th>
-                        <th width="10%">Product Price</th>
-                        <th width="10%">Product Location</th>
+                        <th width="15%">Product Description</th>
+                        <th width="5%">Product Price</th>
+                        <th width="5%">Product Location</th>
                     </tr>
                     {this.state.products.map((product) => {
                         return <ProductItem id={product.id}
                                       title={product.title}
                                       description={product.description}
                                       price={product.price}
-                                      cityName={product.cityName}/>
+                                      cityName={product.cityName}
+                                      imageUrl={product.imageUrl} />
                     })}
+
                 </table>
+
+                <Pagination
+                    activePage={this.state.pagination.activePage}
+                    itemsCountPerPage={this.state.pagination.itemsCountPerPage}
+                    totalItemsCount={this.state.pagination.totalItemsCount}
+                    pageRangeDisplayed={this.state.pagination.pageRangeDisplayed}
+                    onChange={(data) => this.handlePageChange(data)} />
             </div>
         )
     }
 }
-
 module.exports = AdList;

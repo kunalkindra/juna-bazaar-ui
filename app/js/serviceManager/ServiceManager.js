@@ -13,7 +13,7 @@ class ServiceManager {
 	 * @returns {*}
 	 */
 	exec(callSignture, params) {
-		var config = Object.assign(serviceCalls[callSignture],params);
+		var config = Object.assign({},serviceCalls[callSignture],params);
 		if(config.data && config.data.toString() === '[object Object]') {
 			if(config.method === 'post' || config.method === 'put') {
 				config.data = this.objectToFormData(config.data);
