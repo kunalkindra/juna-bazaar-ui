@@ -11,8 +11,11 @@ class CloudinaryImageUploader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgSrc : url
+            imgUrl : url
         }
+    }
+    onImageAdded(){
+        this.props.callbackImageAdded(this.state.imgUrl);
     }
     handleFileInputChange(e) {
         let that = this,
@@ -21,16 +24,13 @@ class CloudinaryImageUploader extends React.Component {
                 upload_preset: 'rz4hjmme',
                 file: file
             }
-
         ServiceManger
             .exec('CLOUDINARY_UPLOAD', {data: data})
             .then((response) => {
-                console.log("response----->", arguments);
                 that.setState({
-                    imgSrc: response.data.url
+                    imgUrl: response.data.url
                 });
-
-
+                this.onImageAdded();
             })
 
         // TODO to generate unique code
@@ -39,12 +39,11 @@ class CloudinaryImageUploader extends React.Component {
     render(){
         return(
             <div>
-                <img src={this.state.imgSrc} width="200px" />
-                <input type="file" onChange={this.handleFileInputChange.bind(this)}/>
+                <img src={this.state.imgUrl} width="200px" />
+                <input type="file" onChange={this.handleFileInputChange.bind(this)} />
             </div>
         )
     }
-
 }
 
 export default CloudinaryImageUploader;

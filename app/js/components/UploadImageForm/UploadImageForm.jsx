@@ -8,7 +8,9 @@ const UploadImageForm = React.createClass ({
 
     getInitialState() {
         return {
-            count : 1
+            count : 1,
+            imgUrls:[],
+            addButtonVisibility : true
         }
     },
 
@@ -18,21 +20,34 @@ const UploadImageForm = React.createClass ({
             this.setState({
                 count: ++currentCount
             })
+        } else {
+            this.setState({
+                    addButtonVisibility: false
+                }
+            )
         }
+    },
+
+    onImageAdded: function(urls) {
+        this.state.imgUrls.push(urls);
+        this.props.callbackOnImagesAdded(this.state.imgUrls);
     },
 
     render(){
         let imgUploadBoxes = [];
         for(let i=0 ; i < this.state.count ; i++){
-            imgUploadBoxes.push(<CloudinaryImageUploader/>)
+            imgUploadBoxes.push(<CloudinaryImageUploader callbackImageAdded={this.onImageAdded}/>)
         }
         return(
 
             <div>
                 {imgUploadBoxes}
-                <input type="button" onClick={this.addBtnClick} value="Add"/>
+                {
+                    this.state.addButtonVisibility
+                        ?  <input type="button" onClick={this.addBtnClick} value="Add" id="addImageButtonId"/>
+                        : null
+                }
             </div>
-
         )
     }
 })
