@@ -38,9 +38,9 @@ class CloudinaryImageUploader extends React.Component {
 
     render(){
         return(
-            <div>
-                <img src={this.state.imgUrl} width="200px" />
-                <input type="file" onChange={this.handleFileInputChange.bind(this)} />
+            <div className="form-group">
+                <img src={this.state.imgUrl} width="200px" className="img-thumbnail"/>
+                <input type="file" className="form-control" onChange={this.handleFileInputChange.bind(this)} />
             </div>
         )
     }

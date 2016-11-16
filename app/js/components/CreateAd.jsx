@@ -1,6 +1,7 @@
 import React from 'react';
 import UploadImageForm from './UploadImageForm/UploadImageForm'
 import ServiceManger from "../serviceManager/ServiceManager";
+import {FormGroup, FormControl, Button} from "react-bootstrap";
 
 class CreateAd extends React.Component {
     constructor(props) {
@@ -49,7 +50,6 @@ class CreateAd extends React.Component {
                     console.log("on success");
                     var data = response.data;
                     this.setState(Object.assign({}, this.state, { cities : data}));
-
                 },
                 (error) => {
                     alert(error.response.data.errorMessage)
@@ -107,20 +107,19 @@ class CreateAd extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>CreateAd</h1>
-                <div>
-
+            <div role="form" className="container">
+                <h1 className="well">Create Ad</h1>
+                <div className="form-group col-md-6">
                     <label for="title">Title:</label>
-                    <input type="text" id="title" onChange={this.handleChange.bind(this, 'title')}/> <br />
+                    <input type="text" id="title" className="form-control" onChange={this.handleChange.bind(this, 'title')}/> <br />
                     <label for="description">Description:</label>
-                    <textarea rows="4" cols="20" id="description"
+                    <textarea rows="4" cols="20" id="description" className="form-control"
                               onChange={this.handleChange.bind(this, 'description')}/> <br />
                     <label for="price">Price:</label>
-                    <input type="number" id="price" onChange={this.handleChange.bind(this, 'price')}/> <br />
+                    <input type="number" id="price" className="form-control" onChange={this.handleChange.bind(this, 'price')}/> <br />
                     <label for="city">City:</label>
 
-                    <select id="city" onChange={this.handleChange.bind(this,'cityId')}>
+                    <select id="city" className="form-control" onChange={this.handleChange.bind(this,'cityId')}>
                         {
                             this.state.cities.map((cityObj) => {
                                 return <option value={cityObj.id}>{cityObj.name}</option>
@@ -130,9 +129,9 @@ class CreateAd extends React.Component {
                     </select>
                       <br />
                     <label for="mobile">Mobile Number:</label>
-                    <input type="text" id="mobileNo" onChange={this.handleChange.bind(this, 'mobileNo')}/> <br />
+                    <input type="text" id="mobileNo" className="form-control" onChange={this.handleChange.bind(this, 'mobileNo')}/> <br />
                     <label for="category">Category:</label>
-                    <select id="category" onChange={this.handleChange.bind(this,'categoryId')}>
+                    <select id="category" className="form-control" onChange={this.handleChange.bind(this,'categoryId')}>
                         {
                             this.state.categoryList.map((categoryObj) => {
                                 return <option value={categoryObj.id}>{categoryObj.name}</option>
@@ -141,7 +140,13 @@ class CreateAd extends React.Component {
                     </select>
                     <br />
                     <UploadImageForm callbackOnImagesAdded={this.onImagesAdded}/>
-                    <input type="submit" value="Submit" onClick={this.handleSubmit}/>
+                    {/*<input type="submit" value="Submit" className={"form-control btn btn-primary prodSubmitBtn"} onClick={this.handleSubmit}/>*/}
+
+                    {/*<div className="col-md-6 col-md-offset-3">*/}
+                        <FormGroup>
+                            <Button bsStyle="primary" onClick={this.handleSubmit}>Save Add</Button>
+                        </FormGroup>
+                    {/*</div>*/}
                 </div>
             </div>
         )

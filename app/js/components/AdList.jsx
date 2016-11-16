@@ -11,9 +11,9 @@ class AdList extends React.Component {
             "products": [],
             "pagination":{
                 "activePage": 1,
-                "itemsCountPerPage": 2,
+                "itemsCountPerPage": 10,
                 "totalItemsCount": 0,
-                "pageRangeDisplayed": 2
+                "pageRangeDisplayed": 3
             }
         };
     }
@@ -59,7 +59,7 @@ class AdList extends React.Component {
         return (
             <div className="container">
 
-                <table align="center">
+                <table align="center" className="table table-striped">
                     <tr>
                         <th width="8%">Product Image</th>
                         <th width="5%">Product Id</th>
