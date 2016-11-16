@@ -1,4 +1,5 @@
 import { browserHistory } from 'react-router';
+import service from '../serviceManager/ServiceManager';
 
 const utils = {
     logIn() {
@@ -14,6 +15,11 @@ const utils = {
     logOut() {
         sessionStorage.setItem('loggedIn', false);
         browserHistory.push('/');
+    },
+    register(model) {
+        service.exec("post", "/register",model);
+        utils.logIn()
+        return true;
     }
 }
 
