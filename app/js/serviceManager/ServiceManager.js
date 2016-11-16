@@ -13,7 +13,7 @@ class ServiceManager {
 	 * @param convToFormData  -- Boolean, true if form data conversion is required
 	 * @returns {*}
 	 */
-	exec(callSignture, params) {
+	exec(callSignture, params, convToFormData) {
 		var config = Object.assign({},serviceCalls[callSignture],params);
 		if(config.data && config.data.toString() === '[object Object]') {
 			if((config.method === 'post' || config.method === 'put') && convToFormData) {
