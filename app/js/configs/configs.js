@@ -26,7 +26,17 @@ const config = {
         POST_ADD  :{
             url: baseServerUrl + '/open/product',
             method: 'post'
+        },
+        GET_CITIES : {
+            url : baseServerUrl + '/open/cities',
+            method : 'get'
+        },
+        GET_CATEGORIES : {
+            url : baseServerUrl + '/open/categories',
+            method : 'get'
         }
+
+
 
     }
 

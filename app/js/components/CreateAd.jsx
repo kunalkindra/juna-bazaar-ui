@@ -9,14 +9,54 @@ class CreateAd extends React.Component {
             title: '',
             description: '',
             price: 0,
-            cityId: '',
+            cities: [],
+            cityId : '',
+            categoryId : '',
             mobileNo: '',
-            categoryId: '',
+            categoryList: [],
             imageUrls: []
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onImagesAdded = this.onImagesAdded.bind(this);
-     }
+    }
+
+    componentWillMount() {
+        this.prePopulateCategories();
+        this.prePopulateCities();
+    }
+
+    prePopulateCategories(){
+        alert("pre populate");
+        ServiceManger
+            .exec('GET_CATEGORIES',{"data":""})
+            .then(
+                (response) => {
+                    console.log("on success");
+                    var data = response.data;
+                    this.setState(Object.assign({}, this.state, { categoryList : data}));
+                    alert(data);
+                },
+                (error) => {
+                    alert(error.response.data.errorMessage)
+                }
+            )
+    }
+
+    prePopulateCities(){
+        ServiceManger
+            .exec('GET_CITIES',{"data":""})
+            .then(
+                (response) => {
+                    console.log("on success");
+                    var data = response.data;
+                    this.setState(Object.assign({}, this.state, { cities : data}));
+                    alert(data);
+                },
+                (error) => {
+                    alert(error.response.data.errorMessage)
+                }
+            )
+    }
 
     onImagesAdded(urls){
         this.state.imageUrls = urls;
@@ -25,8 +65,10 @@ class CreateAd extends React.Component {
     handleChange(field, e) {
         var nextState = {};
         nextState[field] = e.target.value;
+
         this.setState(nextState);
     }
+
 
 
 
@@ -39,7 +81,12 @@ class CreateAd extends React.Component {
                 .exec('POST_ADD', {"data": data})
                 .then((response) => {
                     console.log("on success");
-                })
+                    alert("Product Added Successfully");
+                },
+                    (error) => {
+                        alert(error.response.data.errorMessage)
+                    }
+                )
 
             return;
         } else {
@@ -75,17 +122,24 @@ class CreateAd extends React.Component {
                     <input type="number" id="price" onChange={this.handleChange.bind(this, 'price')}/> <br />
                     <label for="city">City:</label>
 
-                    <select id="city">
-                        <option value="pune">Pune</option>
+                    <select id="city" onChange={this.handleChange.bind(this,'cityId')}>
+                        {
+                            this.state.cities.map((cityObj) => {
+                                return <option value={cityObj.id}>{cityObj.name}</option>
+                            })
+                        }
+
                     </select>
-
-                    <br />
-
+                      <br />
                     <label for="mobile">Mobile Number:</label>
-                    <input type="text" id="mobile" onChange={this.handleChange.bind(this, 'mobile')}/> <br />
+                    <input type="text" id="mobileNo" onChange={this.handleChange.bind(this, 'mobileNo')}/> <br />
                     <label for="category">Category:</label>
-                    <select id="category">
-                        <option value="electronics">Electronics</option>
+                    <select id="category" onChange={this.handleChange.bind(this,'categoryId')}>
+                        {
+                            this.state.categoryList.map((categoryObj) => {
+                                return <option value={categoryObj.id}>{categoryObj.name}</option>
+                            })
+                        }
                     </select>
                     <br />
                     <UploadImageForm callbackOnImagesAdded={this.onImagesAdded}/>
