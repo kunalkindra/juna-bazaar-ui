@@ -43,7 +43,7 @@ const SignIn = React.createClass({
                     username: this.state.email,
                     password: this.state.password
                 }
-            })
+            }, true)
             .then(this.success)
             .catch(this.failure);
     },
